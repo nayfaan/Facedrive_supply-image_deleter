@@ -56,13 +56,19 @@ def clear_media_library(driver):
         
         new_remaining_image_count = remaining_image_count
         global url
+        error_list = ["400 Bad Request", "you are not allowed to delete this item"]
         
         while new_remaining_image_count == remaining_image_count:
             try:
                 new_remaining_image_count = driver.find_element_by_css_selector(".displaying-num")
                 new_remaining_image_count = int(re.sub("[^0-9]", "", remaining_image_count.get_attribute('innerHTML')))
                 
-                if driver.find_element_by_css_selector("body h1").get_attribute('innerHTML') == "400 Bad Request":
+                found_errors = []
+                for item in error_list:
+                    found_item = driver.findElements(By.xpath("//*[contains(text(),'" + item + "')]"))
+                    if len(found_item) > 0:
+                        found_errors.append(found_item)
+                if len(found_errors) > 0:
                     new_remaining_image_count = 0
                     
                     driver.get(url)
