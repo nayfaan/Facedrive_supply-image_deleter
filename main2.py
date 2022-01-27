@@ -55,16 +55,25 @@ def clear_media_library(driver):
                 pass
         
         new_remaining_image_count = remaining_image_count
+        global url
+        
         while new_remaining_image_count == remaining_image_count:
             try:
                 new_remaining_image_count = driver.find_element_by_css_selector(".displaying-num")
                 new_remaining_image_count = int(re.sub("[^0-9]", "", remaining_image_count.get_attribute('innerHTML')))
+                
+                if driver.find_element_by_css_selector("body h1").get_attribute('innerHTML') == "400 Bad Request":
+                    new_remaining_image_count = 0
+                    
+                    driver.get(url)
             except:
                 pass
         
 def run():    
     driver = services.startDriver.start()
-    driver.get("https://facedrivesupply.com/wp-admin/upload.php?mode=list&attachment-filter=trash")
+    global url
+    url = "https://facedrivesupply.com/wp-admin/upload.php?mode=list&attachment-filter=trash"
+    driver.get(url)
     
     with open('./input/credentials.txt','r') as f:
         credentials = f.read().splitlines()
