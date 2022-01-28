@@ -55,7 +55,11 @@ def clear_media_library(driver):
         
         new_remaining_image_count = remaining_image_count
         global url
-        error_list = ["400 Bad Request", "you are not allowed to delete this item", "Web server is returning an unknown error", "A timeout occurred", "Error in deleting the attachment"]
+        error_list = ["400 Bad Request",
+                      "you are not allowed to delete this item",
+                      "Web server is returning an unknown error",
+                      "A timeout occurred", "Error in deleting the attachment",
+                      "This item has already been deleted"]
         
         while new_remaining_image_count == remaining_image_count:
             try:
