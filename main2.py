@@ -62,7 +62,7 @@ def clear_media_library(driver):
             try:
                 new_remaining_image_count = driver.find_element_by_css_selector(".displaying-num")
                 new_remaining_image_count = int(re.sub("[^0-9]", "", remaining_image_count.get_attribute('innerHTML')))
-                
+            except:
                 found_errors = []
                 for item in error_list:
                     found_item = driver.findElements(By.xpath("//*[contains(text(),'" + item + "')]"))
@@ -72,8 +72,6 @@ def clear_media_library(driver):
                     new_remaining_image_count = 0
                     
                     driver.get(url)
-            except:
-                pass
         
 def run():    
     driver = services.startDriver.start()
