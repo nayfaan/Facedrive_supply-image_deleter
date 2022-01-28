@@ -69,9 +69,9 @@ def clear_media_library(driver):
                         found_errors.append(found_item)
                 if len(found_errors) > 0:
                     new_remaining_image_count = 0
-                    driver.delete_all_cookies()
 
                     driver.get(url)
+                    driver.execute_script("location.reload(true);")
         
 def run():    
     driver = services.startDriver.start()
