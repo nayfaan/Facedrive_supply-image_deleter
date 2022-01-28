@@ -65,12 +65,13 @@ def clear_media_library(driver):
             except:
                 found_errors = []
                 for item in error_list:
-                    found_item = driver.findElements(By.xpath("//*[contains(text(),'" + item + "')]"))
+                    found_item = driver.find_elements(By.XPATH,"//*[contains(text(),'" + item + "')]")
                     if len(found_item) > 0:
                         found_errors.append(found_item)
                 if len(found_errors) > 0:
                     new_remaining_image_count = 0
                     
+
                     driver.get(url)
         
 def run():    
